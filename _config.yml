@@ -1,0 +1,4 @@
+# Dependencies
+markdown:         kramdown
+highlighter:      rouge
+gems: [jekyll-gist, jekyll-paginate]
