@@ -25,7 +25,7 @@ Here we defined a method call to WriteLine of the static class Console.
 <?xml version="1.0" encoding="utf-8"?>
  <configuration>
   <expression type="Lambda" typeof="System.Action`1[System.String]">
-   <expression type="Call" typeof="System.Console"kind="Static" methodName="WriteLine">
+   <expression type="Call" typeof="System.Console" kind="Static" methodName="WriteLine">
     <arguments>
      <expression ref="valueParameter"/>
     </arguments>
