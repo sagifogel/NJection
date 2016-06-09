@@ -9,6 +9,7 @@
 {% if include.nodes != null %}
 {% for item in include.nodes %}
 {% include expression.html node=item %}
+{% endfor %}
 {% endif %}
 <span>/{{ item.name }}</span>
 <span>></span>
