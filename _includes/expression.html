@@ -1,15 +1,14 @@
-{% assign node = include.node %}
 <span><</span>
-<span>{{ node.name }}</span>
-{% if include.attributes != null %}
-{% for attr in include.attributes %}
-<span>{{node.attr.name}}=</span><span>"{{node.attr.value}}"</span>
+<span>{{ include.node.name }}</span>
+{% if include.node.attributes != null %}
+{% for attr in include.node.attributes %}
+<span>{{attr.name}}=</span><span>"{{attr.value}}"</span>
 {% endfor %}
 {% endif %}
-{% if node.nodes != null %}
-{% for item in node.nodes %}
+{% if include.node.nodes != null %}
+{% for item in include.node.nodes %}
 {% include expression.html node=item %}
 {% endfor %}
 {% endif %}
-<span>/{{ node.name }}</span>
+<span>/{{ include.node.name }}</span>
 <span>></span>
