@@ -1,10 +1,15 @@
 
 <span><</span>
-<span>{{ include.name }}</span>
+<span>{{ item.name }}</span>
 {% if include.attributes != null %}
     {% for attr in include.attributes %}
         <span>{{attr.name}}=</span><span>"{{attr.value}}"</span>
     {% endfor %}
 {% endif %}
-<span>/{{ include.name }}</span>
+{% if include.nodes != null %}
+    {% for item in include.nodes %}
+        {% include expression.html node=item %}
+    {% endfor %}
+{% endif %}
+<span>/{{ item.name }}</span>
 <span>></span>
