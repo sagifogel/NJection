@@ -1,6 +1,9 @@
 ---
 name: expression
 attributes:
-- type: Parameter
-  typeof: System.Int32
-  name: valueParameter
+- name: type
+  value: Parameter
+- name: typeof
+  value: System.Int32
+- name: name
+  value: valueParameter
