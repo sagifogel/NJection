@@ -1,1 +1,4 @@
-<<span class="pl-ent">{{ include.node.name }}</span>{% if include.node.attributes != null %}{% for attr in include.node.attributes %}<span class="pl-e"> {{attr.name}}=</span><span class="pl-s">"{{attr.value}}"</span>{% endfor %}{% endif %}{% if include.node.nodes == null %}/>{% endif %}{% if include.node.nodes != null %}>{% for item in include.node.nodes %}\n {% include expression.html node=item %}{% endfor %}<<span>/{{ include.node.name }}</span>>{% endif %}
+<<span class="pl-ent">{{ include.node.name }}</span>{% if include.node.attributes != null %}{% for attr in include.node.attributes %}<span class="pl-e"> {{attr.name}}=</span><span class="pl-s">"{{attr.value}}"</span>{% endfor %}{% endif %}{% if include.node.nodes == null %}/>
+{% else %}{% for item in include.node.nodes %}
+ {% include expression.html node=item %}{% endfor %}
+<<span>/{{ include.node.name }}</span>>{% endif %}
