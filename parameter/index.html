@@ -4,5 +4,7 @@ title: parameter
 ---
 
 <pre>
-{% include expression.html indent="" node=site.data.parameter %}
+{% capture indent %}
+{% include expression.html node=site.data.parameter %}
+{% endcapture %}
 </pre>
