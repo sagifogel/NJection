@@ -14,3 +14,7 @@ nodes:
   attributes:
   - name: ref
     value: parameter
+- name: test
+  attributes:
+  - name: ref2
+    value: parameter2
