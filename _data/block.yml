@@ -1,32 +1,26 @@
 ---
-node:
-  name: expression
-  attributes:
-  - name: type
-    value: Block
+name: expression
+attributes:
+- name: type
+  value: Block
+nodes:
+- name: expressions
   nodes:
-  - name: expressions
-    nodes:
-    - name: expression
-      attributes:
-      - name: ref
-        value: expression
-  - name: arguments
+  - name: expression
     attributes:
     - name: ref
-      value: parameter
-  - name: arguments
+      value: expression
+- name: arguments
+  attributes:
+  - name: ref
+    value: parameter
+- name: arguments
+  attributes:
+  - name: ref
+    value: parameter
+- name: expressions
+  nodes:
+  - name: expression
     attributes:
     - name: ref
-      value: parameter
-  name: expression
-  attributes:
-  - name: type
-    value: Block
-  nodes:
-  - name: expressions
-    nodes:
-    - name: expression
-      attributes:
-      - name: ref
-        value: expression
+      value: expression
