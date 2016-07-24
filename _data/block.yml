@@ -11,10 +11,6 @@ nodes:
     - name: ref
       value: expression
 - name: arguments
-  attributes:
-  - name: ref
-    value: parameter
-- name: expressions
   nodes:
   - name: expression
     attributes:
