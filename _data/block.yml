@@ -14,13 +14,3 @@ nodes:
   attributes:
   - name: ref
     value: parameter
-- name: arguments
-  attributes:
-  - name: ref
-    value: parameter
-- name: expressions
-  nodes:
-  - name: expression
-    attributes:
-    - name: ref
-      value: expression
