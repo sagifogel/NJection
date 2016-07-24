@@ -8,31 +8,25 @@ namespace NJection
 {
     public static class ExpressionBuilder
     {
-        private static Expression Traverse(XElement configurationElement)
-        {
+        private static Expression Traverse(XElement configurationElement) {
             return VisitRoot(new ExpressionRoot(), configurationElement.FirstNode as XElement);
         }
 
-        public static T Traverse<T>(string filePath) where T : LambdaExpression
-        {
+        public static Expression<T> Traverse<T>(string filePath) {
             return Traverse<T>(XDocument.Load(filePath));
         }
 
-        public static T Traverse<T>(XDocument document) where T : LambdaExpression
-        {
-            return Traverse(document.FirstNode as XElement) as T;
+        public static Expression<T> Traverse<T>(XDocument document) {
+            return Traverse(document.FirstNode as XElement) as Expression<T>;
         }
 
-        internal static T Resolve<T>(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) where T : Expression
-        {
+        internal static T Resolve<T>(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) where T : Expression {
             ExpressionType type = BaseInjector<Expression>.ResolveType(configurationElement);
             return Visit(parent, parentBlock, type, configurationElement).Value as T;
         }
 
-        internal static ITreeNode<Expression> Visit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, ExpressionType expressionType, XElement configurationElement)
-        {
-            switch (expressionType)
-            {
+        internal static ITreeNode<Expression> Visit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, ExpressionType expressionType, XElement configurationElement) {
+            switch (expressionType) {
                 case ExpressionType.Block:
 
                     return VisitBlock(parent, parentBlock, configurationElement);
@@ -177,133 +171,107 @@ namespace NJection
             }
         }
 
-        private static ITreeNode<Expression> VisitInvoke(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitInvoke(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new InvocationExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitTypeEqual(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitTypeEqual(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new TypeEqualBinaryExpression(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitTypeIs(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitTypeIs(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new TypeIsBinaryExpression(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitMemberAccess(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitMemberAccess(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new MemberExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitListInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitListInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new ListInitExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitArrayAccess(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitArrayAccess(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new IndexExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitArrayIndex(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitArrayIndex(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new ArrayIndexInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitNewArrayInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitNewArrayInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new NewArrayInitInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitNewArrayBounds(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitNewArrayBounds(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new NewArrayBoundsInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitMemberInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitMemberInit(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new MemberInitExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitNew(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitNew(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new NewExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitSwitch(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitSwitch(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new SwitchExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitTry(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitTry(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new TryExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitCatchBlock(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitCatchBlock(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new LambdaExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static Expression VisitRoot(ExpressionRoot root, XElement configurationElement)
-        {
+        private static Expression VisitRoot(ExpressionRoot root, XElement configurationElement) {
             return new LambdaExpressionInjector(root, configurationElement).Parse();
         }
 
-        private static ITreeNode<Expression> VisitBlock(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitBlock(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new BlockExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitParameter(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitParameter(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new ParameterExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitConstant(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitConstant(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new ConstantExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitLabel(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitLabel(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new LabelExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitLoop(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitLoop(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new LoopExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitConditional(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitConditional(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new ConditionalExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitBinary(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitBinary(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new BinaryExpresionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitUnary(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitUnary(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new UnaryExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitGoTo(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitGoTo(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new GotoExpressionInjector(parent, parentBlock, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitLambda(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitLambda(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new LambdaExpressionInjector(parent, null, configurationElement);
         }
 
-        private static ITreeNode<Expression> VisitCall(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement)
-        {
+        private static ITreeNode<Expression> VisitCall(ITreeNodeBase parent, ITreeNode<Expression> parentBlock, XElement configurationElement) {
             return new MethodCallExpressionInjector(parent, parentBlock, configurationElement);
         }
     }
