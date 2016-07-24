@@ -15,4 +15,4 @@ nodes:
   - name: expression
     attributes:
     - name: ref
-      value: expression
+      value: parameter
