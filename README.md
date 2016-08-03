@@ -11,8 +11,8 @@ Please visit the [github pages](https://sagifogel.github.io/NJection/) to see th
 Parsing the configuration file is done by using the ExpressionBuilder's Traverse method:
 
 ```c#
-LambdaExpression expression = ExpressionBuilder.Traverse<LambdaExpression>(@"C:\Example.config");
-Action<string> actionOfString = expression.Compile() as Action<string>;
+var expression = ExpressionBuilder.Traverse<Action<string>>(@"C:\Example.config");
+var actionOfString = expression.Compile();
 
 actionOfString("Hello World!");
 ```
