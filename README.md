@@ -31,7 +31,7 @@ Here we defined a method call to WriteLine of the static class Console.
     </arguments>
    </expression>
    <arguments>
-    <expression type="Parameter" typeof="System.String" name"valueParameter"/>
+    <expression type="Parameter" typeof="System.String" name="valueParameter"/>
    </arguments>
   <expression>
  <configuration>
